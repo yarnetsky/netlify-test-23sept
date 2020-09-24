@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<article class="page">
+  <div class="header"></div>
+    {% if page.suppress_breadcrumbs != true %}
+      {% include breadcrumbs.html %}
+    {% endif %}
+  <div id="main-content" role="main">
+    <header class="page-header">
+      <h1 class="page-title">{{ page.title | escape }}</h1>
+    </header>
+
+    <div class="page-content">
+      {{ content }}
+    </div>
+  </div>
+</article>

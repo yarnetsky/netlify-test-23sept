@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<article class="page">
+  <!-- Banner image and page title. If statement interprets as "if banner-image is present in
+        front matter then present code. If not, skip." -->
+  <div class="container-fluid" style="position: relative;">
+    {% if page.banner-image %}
+    <img class="banner-image" src="{{ page.banner-image | prepend: site.baseurl }}" alt="{{page.banner-image-alt}}" />
+    {% endif %}
+    <div>
+      <div class="page-header">
+        <h1 class="page-title">{{ page.title | escape }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content container">
+    <div class="row">
+      <!-- Section menu."assigning" allows us to sort the pages based on weight in front matter.-->
+      <div id="collection-menu" role="navigation" aria-label="section" class="col-md-3 col-12">
+        <h2 class="h2_titles_side">News and Events</h2>
+        {% assign pages = site.news-events | sort:"weight" %}
+        <ul class="linksLeftSidebar">
+          {% for page in pages %}
+          <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <!-- Main Content -->
+      <div id="main-content" role="main" tabindex="-1" class="col-md-9 col-12">
+        {{ content }}
+      </div>
+
+    </div>
+  </div>
+</article>

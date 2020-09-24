@@ -1,0 +1,105 @@
+---
+layout: default
+---
+<article class="page">
+  <!-- Banner image and page title. If statement interprets as "if banner-image is present in
+        front matter then present code. If not, skip." -->
+  <div class="container-fluid" style="position: relative;">
+    <div class="page-header">
+        <h1 class="page-title">{{ page.title | escape }}</h1>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="row">
+
+      <!-- Locations menu."assigning" allows us to sort the pages based on weight in front matter.-->
+      <div id="collection-menu" role="navigation" aria-label="section" class="col-md-3 col-12">
+
+        <h2 class="h2_titles_side">Instruction Support</h2>
+        {% assign instruct = site.instruction | sort:"weight" %}
+        <ul class="linksLeftSidebar">
+          {% for page in instruct %}
+          <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      {% if page.main_wide == true %}
+      {% assign main_width = 9 %}
+      {% else %}
+      {% assign main_width = 6 %}
+      {% endif %}
+      <div id="main-content" role="main" tabindex="-1" class="col-md-{{main_width}} col-12">
+
+        {{ content }}
+
+      </div>
+
+      <!-- FAQ sidebar -->
+{% if page.permalink != '/research/instruction/videos/' %}
+      <div role="complementary" class="col-md-3 col-12 list-unstyled">
+
+        <h2>For More Information</h2>
+        {% if page.permalink == '/research/instruction/accessibility/' %}
+          {% assign name = 'Katie Gibson' %}
+          {% assign title = 'Humanities Librarian and Library Accessibility Liaison' %}
+          {% assign photo_url = '//libapps.s3.amazonaws.com/accounts/8191/profiles/5522/O16514_Katie_Gibson__1_.jpg' %}
+          {% assign address = '203 King Library' %}
+          {% assign phone = '513-529-0190' %}
+          {% assign email = 'gibsonke@miamioh.edu' %}
+          {% assign mysched_id = '31734' %}
+        {% else if page.permalink == '/research/instruction/library-instruction/' %}
+          {% assign name = 'Lindsay Miller' %}
+          {% assign title = 'Assistant Head of Advise and Instruct Department' %}
+          {% assign photo_url = '//libapps.s3.amazonaws.com/accounts/8208/profiles/5539/Miller_Lindsay_O41018.jpg' %}
+          {% assign address = '211 King Library' %}
+          {% assign phone = '513-529-8035' %}
+          {% assign email = 'mille234@miamioh.edu' %}
+          {% assign mysched_id = '31733' %}
+        {% endif %}
+        <p>For questions about Library Instruction and Information Literacy, please contact <b>{{name}}</b>, Assistant Head of Advise and Instruct Department.</p>
+        <img src="{{photo_url}}" alt="{{name}}">
+
+        <div class="profile-contact">
+          <p class="mb-0">{{address}}<br />
+              {{phone}}<br />
+              <a title="{{email}}" href="mailto:{{email}}" class="label label-info">Email Me</a></p>
+        </div>
+
+          <div class="s-lib-profile-widget"><script>
+        jQuery.getScript("https://api3.libcal.com/js/myscheduler.min.js", function() {
+            jQuery("#mysched_{{mysched_id}}").LibCalMySched({iid: 425, lid: 0, gid: 0, uid: {{mysched_id}}, width: 560, height: 680, title: 'Make an Appointment', domain: 'https://api3.libcal.com'});
+        });
+        </script>
+        <button id="mysched_{{mysched_id}}" class="mysched" href="#">Schedule Appointment</button>
+
+      </div>
+      {% if page.permalink contains '/instruction/library-instruction/' %}
+      <div id="instruct-form-card" class="card mt-4">
+        <div class="card-body">
+          <h2 class="h4">Library Instruction Request Form</h2>
+          <p class="card-text">To schedule a session with a librarian, fill out our <a href="https://miamioh.qualtrics.com/jfe/form/SV_5umPTC60GL4IU3H">Library Instruction Request Form</a>. Or if you prefer, please contact the <a
+              href="/about/liaisons/">Subject Specialist Librarian</a> in your area of study.
+            </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  <style media="screen">
+    blockquote p{
+      letter-spacing: 0.1px;
+    }
+    #video-h2{
+      min-height:72px;
+      max-height:80px;
+      overflow: scroll;
+      text-overflow: ellipsis;
+    }
+  </style>
+
+</article>
